@@ -1,27 +1,107 @@
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
+// // import Home from '../views/Home.vue'
+// import controlApp from '@/components/router/ControlApp.vue'
+// import OverviewPage from '@/components/router/overview/OverviewPage'
+
+// Vue.use(VueRouter)
+
+// const routes = [
+//   {
+//     path: '/',
+//     component: controlApp,
+//     children: [
+//       {
+//         path: '/',
+//         redirect: '/overview',
+//         meta: {
+//             titleKey: 'TEXT_TOTAL_VIEW'
+//         }
+//       },
+//       // 總覽
+//       {
+//         name: 'overview',
+//         path: '/overview',
+//         component: OverviewPage,
+//         caseSensitive: true,
+//         meta: {
+//             titleKey: 'TEXT_TOTAL_VIEW'
+//         }
+//       }
+//     ]
+//   }
+// ]
+
+// const router = new VueRouter({
+//   routes
+// })
+
+// export default router
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import store from '@/store';
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
+function getComponent (path) {
+  store.dispatch('actionCommonLoading', true);
+  return import(`../components/${path}`).then(res => {
+      store.dispatch('actionCommonLoading', false);
+      return res;
+  });
+}
+const components = {
+  common: {
+    controlApp: () => getComponent('router/ControlApp'),
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+  overview: {
+    overview: () => getComponent('router/overview/OverviewPage'),
+  },
+};
 
-const router = new VueRouter({
-  routes
-})
+// 各頁的權限meta
+// ...以下
 
-export default router
+let router;
+router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      component: components['common']['controlApp'],
+      // component: controlApp,
+      caseSensitive: true,
+      children: [
+        {
+          path: '/',
+          redirect: '/overview',
+          meta: {
+              titleKey: 'TEXT_TOTAL_VIEW'
+          }
+        },
+        // 總覽
+        {
+          name: 'overview',
+          path: '/overview',
+          component: components['overview']['overview'],
+          // component: OverviewPage,
+          caseSensitive: true,
+          meta: {
+              titleKey: 'TEXT_TOTAL_VIEW'
+          }
+        },
+      ],
+    },
+  ],
+});
+
+// router.beforeEach(async(to, from, next) => {
+//   next();
+// });
+// router.afterEach((to, from) => {
+// });
+// router.beforeResolve((to, from, next) => {
+//   next();
+// });
+
+export default router;

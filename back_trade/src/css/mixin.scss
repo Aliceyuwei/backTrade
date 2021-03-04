@@ -1,0 +1,775 @@
+@import "./param";
+// RGB邊匡主題
+@mixin rgb($borderRadius: 0px) {
+  background: rgb(24, 23, 23)!important;
+  color: white!important;
+  transition-duration: .4s;
+  position: relative;
+  // 這裡是螢光效果
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    border-radius: $borderRadius;
+    background: linear-gradient(45deg,#fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    filter: blur(4px);
+    animation: rgbAnimation 20s linear infinite;
+  }
+  // 這裡是燈條效果
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    border-radius: $borderRadius;
+    background: linear-gradient(45deg,#fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: rgbAnimation 20s linear infinite;
+  }
+}
+// 垂直對齊
+@mixin verticalAlign($position: "relative") {
+  position: $position;
+  top: 50%;
+  transform: translateY(-50%);
+}
+// 水平垂直對齊
+@mixin allAlignCenter($position: "relative") {
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+// 實心按鈕
+@mixin solidButton(
+  $fontSize: 12px,
+  $height: 28px,
+  $lineHeight: 28px,
+  $width: auto,
+  $padding: 0 5px,
+  $color: $linkColor,
+  $activeColor: #188ae1
+) {
+  width: $width;
+  height: $height;
+  background-color: $color;
+  border-radius: 2px;
+  cursor: pointer;
+  color: #fff;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  padding: $padding;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  &:hover,
+  &.active {
+    background-color: $activeColor;
+  }
+  &.disable {
+    background-color: $color;
+    cursor: not-allowed;
+  }
+}
+// 空心按鈕
+@mixin hollowButton(
+  $fontSize: 12px,
+  $height: 28px,
+  $lineHeight: 26px,
+  $width: auto,
+  $padding: 0 5px,
+  $color: $linkColor,
+  $activeColor: #188ae1
+) {
+  width: $width;
+  height: $height;
+  border: 1px solid $color;
+  border-radius: 2px;
+  cursor: pointer;
+  color: $color;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  padding: $padding;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  &:hover,
+  &.active {
+    color: #fff;
+    background-color: $activeColor;
+    border-color: $activeColor;
+  }
+  &.disable {
+    background-color: transparent;
+    border-color: $color;
+    cursor: not-allowed;
+    color: $color;
+  }
+}
+// 超字處理
+@mixin overFlowDot() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+// 過濾組件的下拉選單
+@mixin filterDropDown($assetUrl) {
+  &.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*
+        .focusMask {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 4;
+            &:focus,
+            &:hover {
+                & + .filterTitle {
+                    background-color: #666670;
+                    color: #FFF;
+                    .filterIcon {
+                        background-image: url('#{$assetUrl}/gameDownload/filter_open.png');
+                    }
+                }
+            }
+            &:focus {
+                z-index: 2;
+            }
+        }
+        .blurMask {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 3;
+        }
+        */
+    .filterTitle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      padding: 2px 5px;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      .titleText {
+        max-width: calc(100% - 20px);
+        @include overFlowDot();
+      }
+      &:hover .filterIcon {
+        background-image: url("#{$assetUrl}/gameDownload/filter_open.png");
+      }
+      &:hover {
+        background-color: #666670;
+        color: #fff;
+      }
+    }
+    &.open {
+      .filterTitle {
+        background-color: #666670;
+        color: #fff;
+        .filterIcon {
+          background-image: url("#{$assetUrl}/gameDownload/filter_open.png");
+        }
+      }
+    }
+    &.active {
+      .filterTitle,
+      .focusMask + .filterTitle {
+        .filterIcon {
+          background-image: url("#{$assetUrl}/gameDownload/filter_active.png");
+        }
+      }
+    }
+    .filterDropDown {
+      width: 100%;
+      position: absolute;
+      top: calc(100% + 1px);
+      left: 0;
+      z-index: 199;
+      .filterText {
+        height: 29px;
+        border-bottom: 1px solid #fff;
+        color: #333;
+        line-height: 29px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@mixin placeholderStyle() {
+  &::placeholder {
+    @content;
+  }
+}
+
+@mixin wagerTable($assetUrl) {
+  .table {
+    .tableHead,
+    .tableBody {
+      & > table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        & > tr {
+          & > td,
+          & > th {
+            border-right: 1px solid $borderColor;
+            // padding: 0;
+            word-break: break-all;
+            padding: 5px 8px;
+          }
+          & > .time {
+            width: 50px;
+          }
+          & > .account {
+            width: 60px;
+          }
+          & > .suffix {
+            width: 45px;
+          }
+          & > .wagerId {
+            width: 60px;
+          }
+          & > .childWager {
+            width: 330px;
+            padding: 0;
+            .childWagerItems {
+              display: flex;
+              width: 100%;
+              height: 100%;
+              & > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-right: 1px solid $borderColor;
+                &:last-child {
+                  border-right: 0;
+                }
+              }
+              & > .playType {
+                width: 70px;
+                flex: 70 0 70px;
+              }
+              & > .oddsType {
+                width: 60px;
+                flex: 60 0 60px;
+              }
+              & > .betContent {
+                width: 200px;
+                flex: 200 0 200px;
+              }
+            }
+          }
+          & > .batch {
+            width: 40px;
+            .checkbox {
+              width: 17px;
+              height: 17px;
+              border-color: #ccc;
+              cursor: pointer;
+              margin: auto;
+            }
+          }
+          & > .betAmount {
+            width: 90px;
+          }
+          & > .reward {
+            width: 70px;
+          }
+          & > .companyIncome {
+            width: 70px;
+          }
+          & > .wagerStatus {
+            width: 60px;
+            padding: 0;
+            position: relative;
+            & > .childWagerStatus {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex: 1 0;
+              width: 100%;
+              padding: 5px 8px;
+            }
+          }
+          & > .canceller {
+            width: 60px;
+            padding: 0;
+            position: relative;
+            & >.cancellerInfo {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              .name {
+                color: #62757f;
+              }
+              .time {
+                color: #b0babf;
+              }
+            }
+          }
+          & > .option {
+            width: 100px;
+            position: relative;
+            & > .childOption {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+              padding: 5px 8px;
+              border-bottom: 1px solid #d0d8de;
+              position: relative;
+            }
+          }
+        }
+      }
+    }
+    .tableHead {
+      & > table {
+        & > tr {
+          & > th {
+            font-weight: bold;
+            height: 35px;
+            text-align: center;
+            padding: 0 1px;
+            .text {
+              @include overFlowDot();
+            }
+            &.wagerStatus {
+              & > .childWagerStatus {
+                padding: 0 1px;
+              }
+            }
+          }
+          & > .suffix {
+            padding: 5px 8px;
+          }
+        }
+      }
+    }
+    .tableBody {
+      height: calc(100% - 35px);
+      & > table {
+        & > .tableItems {
+          display: table-row;
+          height: auto;
+          & > td {
+            word-break: break-all;
+            height: 60px;
+          }
+          & > .time {
+            color: #797979;
+            padding: 5px 1px;
+            .text {
+              text-align: center;
+            }
+          }
+          & > .account {
+            justify-content: flex-start;
+            color: #666670;
+            padding-left: 0;
+            padding-right: 5px;
+            & > .text {
+              padding-left: 5px;
+              &.userName {
+                // padding-left: 12px;
+                position: relative;
+                .specialSign {
+                  display: inline-block;
+                //   top: 50%;
+                //   left: 5px;
+                  transform: translateY(-50%);
+                }
+                .suffix {
+                    color: #B2B2B7;
+                }
+              }
+              &.ip {
+                color: $color_gray6;
+                padding-left: 0;
+              }
+            }
+            .memberOption {
+              display: flex;
+              align-items: center;
+              min-height: 16px;
+              float: right;
+              .userTag {
+                flex-shrink: 0;
+                .tag {
+                  opacity: 1;
+                }
+              }
+              .currencySymbol {
+                flex-grow: 1;
+                flex-shrink: 0;
+                width: 0.1px;
+                text-align: right;
+                padding-left: 3px;
+                word-break: break-all;
+              }
+            }
+            &:hover {
+              .memberOption {
+                .userTag {
+                  .tag {
+                    opacity: 0.5;
+                  }
+                }
+              }
+            }
+          }
+          & > .suffix {
+            color: #b2b2b7;
+            padding: 5px 8px;
+          }
+          & > .wagerId {
+            flex-direction: column;
+            color: #797979;
+            & > .text {
+              width: 100%;
+              text-align: center;
+              div {
+                color: #797979;
+                &.receive {
+                  color: #ccc;
+                }
+                // 拒絕
+                &.reject {
+                  color: $color_red2;
+                }
+                // 註銷
+                &.cancel {
+                  color: #f9c547;
+                }
+                &.win {
+                  color: #78cd51;
+                }
+                &.lose {
+                  color: $color_red;
+                }
+              }
+            }
+          }
+          & > .childWager {
+            .childWagerItems {
+              & > div {
+                min-height: 60px;
+                padding: 5px 8px;
+              }
+              & > .playType {
+                color: #4d4d4d;
+                text-align: left;
+                justify-content: flex-start;
+              }
+              & > .oddsType {
+                color: #b2b2b7;
+              }
+              & > .betContent {
+                align-items: flex-start;
+                position: relative;
+                .text {
+                  display: flex;
+                  flex: 1;
+                  .betInfoWrap {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    justify-content: center;
+                    align-items: flex-start;
+                    width: 0.1px;
+                    margin-right: 2px;
+                    .league,
+                    .betInfo,
+                    .betTarget {
+                      width: 100%;
+                    }
+                    .match_id {
+                      color: #54c3e5;
+                    }
+                    .matchName {
+                      color: #2e4a7a;
+                    }
+                    .league {
+                      color: #666670;
+                    }
+                    .betInfo {
+                      .home,
+                      .away {
+                        color: #4d4d4d;
+                      }
+                      .handicap {
+                        color: #2e4a7a;
+                      }
+                    }
+                    .betTarget {
+                      color: #4d4d4d;
+                      .target {
+                        color: #2e4a7a;
+                      }
+                      .odds {
+                        color: $color_red;
+                      }
+                    }
+                  }
+                  .batchWrap {
+                    flex-shrink: 0;
+                    align-self: flex-start;
+                    margin-left: auto;
+                    .parlayBatch {
+                      width: 13px;
+                      height: 13px;
+                      border-radius: 50%;
+                      border-color: #ccc;
+                      cursor: pointer;
+                    }
+                  }
+                  .eventTags {
+                    position: absolute;
+                    right: 5px;
+                    bottom: 0;
+                    display: flex;
+                  }
+                  .popularSign {
+                    width: 11px;
+                    height: 23px;
+                    background: url("#{$assetUrl}/gameOpen/filled-recommend.png") center center no-repeat;
+                  }
+                  .highlightTag {
+                    color: orange;
+                    margin-left:5px;
+                    width: auto;
+                    height: 23px;
+                  }
+                }
+              }
+              &.onBatch {
+                background-color: #f4f8fb;
+              }
+            }
+          }
+          & > .batch {
+            &.block {
+              background-color: #fbfbfd;
+              .checkbox {
+                cursor: default;
+                background-color: #fbfbfd;
+              }
+            }
+          }
+          & > .betAmount {
+            color: #b0babf;
+            .text {
+              text-align: right;
+              &.foreignCurrency {
+                margin-top: 16px;
+              }
+            }
+          }
+          & > .reward {
+            color: #62757f;
+            .text {
+              text-align: right;
+              &.foreignCurrency {
+                margin-top: 16px;
+              }
+            }
+          }
+          & > .companyIncome {
+            color: #62757f;
+            .text {
+              text-align: right;
+              &.foreignCurrency {
+                margin-top: 16px;
+              }
+            }
+          }
+          & > .wagerStatus {
+            & > .childWagerStatus {
+              border-bottom: 1px solid $borderColor;
+              color: #62757f;
+              height: 100%;
+              // 接受
+              &.receive {
+                color: #ccc;
+              }
+              // 拒絕
+              &.reject {
+                color: $color_red2;
+              }
+              // 註銷
+              &.cancel {
+                color: #f9c547;
+              }
+              &.win {
+                color: #78cd51;
+              }
+              &.lose {
+                color: $color_red;
+              }
+              &:last-child {
+                border-bottom: 0;
+              }
+              &.onBatch {
+                background-color: #f4f8fb;
+              }
+            }
+          }
+          & > .option {
+            & > .childOption {
+              .optionBtn {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: 100%;
+                .accept,
+                .refuse {
+                  color: #aebabf;
+                  cursor: pointer;
+                }
+                .accept {
+                  &:hover {
+                    color: #62757f;
+                  }
+                }
+                .refuse {
+                  &:hover {
+                    color: $color_red;
+                  }
+                }
+                .line {
+                  width: 1px;
+                  height: 10px;
+                  background-color: #ebeff2;
+                }
+              }
+              &:last-child {
+                border-bottom: 0;
+              }
+              &.onBatch {
+                background-color: #f4f8fb;
+                .optionBtn {
+                  display: none;
+                }
+              }
+            }
+          }
+          &.onBatch {
+            background-color: #f4f8fb;
+          }
+        }
+      }
+      & > .emptyText {
+        font-size: 24px;
+        color: #ccc;
+        margin-top: 40px;
+        text-align: center;
+      }
+    }
+  }
+  .navOpen {
+    .table {
+      .tableHead,
+      .tableBody {
+        & > table {
+          & > .time {
+            width: 60px;
+          }
+          & > .account {
+            width: 65px;
+          }
+          & > .suffix {
+            width: 40px;
+          }
+          & > .wagerId {
+            width: 70px;
+          }
+          & > .childWager {
+            width: 305px;
+            & > .playType {
+              width: 60px;
+              flex: 60 0 60px;
+            }
+            & > .oddsType {
+              width: 45px;
+              flex: 45 0 45px;
+            }
+            & > .betContent {
+              width: 200px;
+              flex: 200 0 200px;
+            }
+          }
+          & > .batch {
+            width: 40px;
+          }
+          & > .betAmount {
+            width: 70px;
+          }
+          & > .reward {
+            width: 85px;
+          }
+          & > .wagerStatus {
+            width: 50px;
+          }
+          & > .option {
+            width: 100px;
+          }
+        }
+      }
+    }
+  }
+}
+@mixin sortBtn($assetUrl) {
+  width: 12px;
+  height: 12px;
+  background: url("#{$assetUrl}/riskMonitor/fc-order.png") center center no-repeat;
+  cursor: pointer;
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  &.increase {
+    background-image: url("#{$assetUrl}/riskMonitor/fc-increase-order.png");
+  }
+  &.decrease {
+    background-image: url("#{$assetUrl}/riskMonitor/fc-decrease-order.png");
+  }
+}
+.ip {
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+  .flag {
+      transform: scale(0.55);
+      width: 30px;
+      height: 30px;
+  }
+}

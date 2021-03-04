@@ -1,0 +1,837 @@
+
+$assetUrl: "../assets/";
+@import "./mixin.scss";
+@import "./param";
+// -------------------------------------
+//     多個組件共用的css
+// -------------------------------------
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  &.swal2-shown {
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+}
+.emptyHint {
+  font-size: 24px;
+  color: #ccc;
+  margin-top: 40px;
+  text-align: center;
+}
+// 共用輸入匡(含放大鏡)
+.commonSearchInput {
+  display: block;
+  width: 180px;
+  position: relative;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #E6E6E6;
+  border-radius: 2px;
+  background: url($assetUrl + 'common/searchIcon.png') 12px center #FFF no-repeat;
+  padding: 0 20px 0 10px;
+  font-size: 12px;
+  z-index: 2;
+  @include overFlowDot();
+  &.active {
+    background: white;
+    border: solid 1px #5A5F5F;
+  }
+  &::placeholder {
+    padding-left: 20px;
+  }
+  &:focus {
+    border: 1px solid #5A5F5F;
+  }
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Microsoft JhengHei", "微軟正黑體", arial, helvetica, sans-serif;
+}
+
+#app {
+  overflow: auto;
+}
+
+body {
+  font-size: 12px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input[type="checkbox"] {
+  display: none;
+  &:checked + .checkbox {
+    &::after {
+      content: "\221A";
+      position: absolute;
+      line-height: 12px;
+      color: #808080;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+    }
+  }
+}
+.blocked {
+  cursor: not-allowed!important;
+}
+.radioButton {
+  display: flex;
+  align-items: center;
+  color: #666670;
+  cursor: pointer;
+  .radioIcon {
+    display: block;
+    position: relative;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #e6e6e6;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-right: 10px;
+  }
+  &.active {
+    .radioIcon {
+      position: relative;
+      border-color: $color_blue;
+      background-color: $color_blue;
+      &::after {
+        content: "\221A";
+        position: absolute;
+        line-height: 12px;
+        color: #fff;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+      }
+    }
+  }
+}
+
+input,
+textarea {
+  @include placeholderStyle() {
+    color: #ccc !important;
+    font-family: "Microsoft JhengHei", "微軟正黑體", arial, helvetica, sans-serif !important;
+  }
+}
+
+.checkbox {
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+#routeContent {
+  width: 100%;
+  height: 100%;
+}
+
+.pageContentLeft {
+  height: 100%;
+}
+
+.pageContentRight {
+  flex: 1;
+  height: 100%;
+  width: 0.1%;
+}
+
+// 日期套件
+.flatPickr {
+  cursor: pointer;
+  &.error {
+    border: 1px solid $color_red;
+  }
+}
+
+// 日期套件壓樣式
+.flatpickr-days {
+  .flatpickr-day {
+    &.today {
+      border-color: transparent;
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        outline: 0;
+        background: #e2e2e2;
+        border-color: #e2e2e2;
+        color: #484848;
+      }
+      &.selected {
+        &:hover,
+        &:focus {
+          background: #42a5f5;
+          color: #fff;
+          border-color: #42a5f5;
+        }
+      }
+      &.endRange,
+      &.startRange {
+        background: #42a5f5;
+        color: #fff;
+        border-color: #42a5f5;
+      }
+    }
+    &.todayUTC4 {
+      border-color: #42a5f5;
+    }
+    &.prevMonthDay,
+    &.nextMonthDay {
+      color: inherit;
+      background: inherit;
+      border: inherit;
+      cursor: inherit;
+      &:hover {
+        cursor: pointer;
+        outline: 0;
+        background: #e2e2e2;
+        border-color: #e2e2e2;
+      }
+      &.inRange {
+        cursor: pointer;
+        outline: 0;
+        background: #e2e2e2;
+        border-color: #e2e2e2;
+      }
+      &.endRange,
+      &.startRange {
+        background: #42a5f5;
+        color: #fff;
+        border-color: #42a5f5;
+      }
+    }
+    &.disabled {
+      color: rgba(72, 72, 72, 0.3);
+      background: transparent;
+      border-color: transparent;
+      cursor: default;
+      &:hover {
+        color: rgba(72, 72, 72, 0.3);
+        background: transparent;
+        border-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+}
+
+.swal2-container {
+  .swal2-content {
+    .inputTitle {
+      text-align: left;
+    }
+    .swal2-input {
+      margin-top: 0.5em;
+    }
+  }
+}
+
+// 表格過濾
+.filterIcon {
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  background: url("../assets/gameDownload/filter_close.png") center center no-repeat;
+}
+
+.tutorial {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  .tutorialMask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .tutorialMsg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .tutorialWin {
+      width: 300px;
+      position: absolute;
+      top: 65px;
+      left: 50%;
+      transform: translateX(-50%);
+      .winTitle {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 35px;
+        position: relative;
+        padding: 0 25px 0 20px;
+        background-color: #188ae2;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        color: #fff;
+        @include overFlowDot();
+        .winCloseBtn {
+          width: 12px;
+          height: 13px;
+          right: 10px;
+          background: url("../assets/gameDownload/closeMsgBtn.png") center center no-repeat;
+          cursor: pointer;
+          @include verticalAlign(absolute);
+        }
+      }
+      .winContent {
+        padding: 10px 20px;
+        background-color: #fff;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        min-height: 115px;
+        .tipInfo {
+          color: #999;
+          font-size: 10px;
+          margin-top: 10px;
+        }
+        .mainInfo {
+          color: #4d4d4d;
+          line-height: 1.5;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+.search-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 0 11px;
+  background-color: #ebeff2;
+  flex-shrink: 0;
+  & > div {
+    flex-shrink: 0;
+  }
+  .openDateDownloadBtn {
+    @include solidButton($width: auto);
+    margin-right: 10px;
+  }
+  .selector {
+    background-color: #fff;
+  }
+  .datePicker {
+    margin-right: 10px;
+  }
+  .updateBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: $linkColor;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+    &:hover {
+      background-color: #188ae1;
+    }
+    &.loading {
+      background: #188ae1;
+      .fa-refresh {
+        animation: rotating 1s linear infinite;
+      }
+    }
+  }
+  .sortBtn {
+    @include hollowButton($width: auto);
+    &.small {
+      @include hollowButton($width: auto);
+    }
+  }
+  .saveSortBtn {
+    @include solidButton($width: 64px);
+  }
+  .justShow {
+    position: relative;
+    z-index: 9999;
+    .justShowBtn {
+      @include hollowButton($width: 64px);
+      border-color: #f9c851 !important;
+      cursor: default;
+    }
+    &::after {
+      display: block;
+      width: 15px;
+      height: 16px;
+      content: "";
+      position: absolute;
+      left: calc(100% + 3px);
+      top: calc(100% + 3px);
+      background: url("../assets/gameDownload/tutorialArrow.png") center center no-repeat;
+    }
+  }
+  .closeSortBtn {
+    margin-left: 5px;
+    min-width: 84px;
+    padding: 0 5px;
+    @include hollowButton($width: auto);
+  }
+  .pager {
+    margin: 10px 10px 0 auto;
+  }
+}
+
+//表格
+.table-wrap {
+  width: 100%;
+  height: calc(100% - 52px);
+  background-color: #fff;
+  overflow: auto;
+  color: #333;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+  .table {
+    float: left;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    &-fix-tag {
+        min-height: calc(100vh - 120px);
+    }
+  }
+  .hiddenText {
+    visibility: hidden;
+  }
+  .tableHead {
+    display: flex;
+    height: 35px;
+    flex: none;
+    color: #666670;
+    background-color: #fff;
+    border-bottom: 1px solid $borderColor;
+    padding-right: 17px;
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      position: relative;
+      background-color: #fff;
+      line-height: 31px;
+      padding: 2px 5px;
+      & > .text {
+        font-weight: bold;
+        max-width: 100%;
+        @include overFlowDot();
+      }
+      .titleText {
+        font-weight: bold;
+      }
+      &.filterTH {
+        position: relative;
+      }
+    }
+  }
+  .tableBody {
+    border-bottom: 1px solid $borderColor;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex: 1;
+    height: calc(100% - 35px);
+    .tableContent {
+      width: 100%;
+      & > .emptyText {
+        font-size: 24px;
+        color: #ccc;
+        margin-top: 40px;
+        text-align: center;
+      }
+    }
+    .tableItems {
+      display: flex;
+      border-bottom: 1px solid $borderColor;
+      position: relative;
+      min-height: 40px;
+      height: auto;
+      &.background {
+        background-color: #f4f8fb;
+      }
+      &.dragged {
+        background-color: rgba(255, 212, 136, 0.5);
+      }
+      & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #797979;
+        // height: 100%;
+        padding: 2px 5px;
+      }
+      .overMask {
+        width: 100%;
+        height: calc(100% + 1px);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+      }
+      .leagueName,
+      .homeName,
+      .awayName {
+        width: 100%;
+        //@include overFlowDot();
+      }
+      .homeName {
+        color: #4d4d4d;
+      }
+      .isLive {
+        .icon {
+          &.Y::after {
+            content: "LIVE";
+            color: $color_red;
+            font-weight: bold;
+            font-family: Arial;
+          }
+        }
+      }
+      .liveSwitch {
+        .icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 40px;
+          height: 20px;
+          border-radius: 2px;
+          border: 1px solid transparent;
+          cursor: pointer;
+          &::after {
+            content: "LIVE";
+            font-weight: bold;
+            font-family: Arial;
+          }
+          &.Y {
+            color: $color_red;
+          }
+          &.N {
+            color: #ccc;
+            border-color: #ccc;
+          }
+          &:hover {
+            &.Y {
+              color: #fff;
+              border-color: #ccc;
+              background-color: #ccc;
+            }
+            &.N {
+              color: #fff;
+              border-color: $color_red;
+              background-color: $color_red;
+            }
+          }
+        }
+      }
+    }
+  }
+  .emptyTable {
+    float: left;
+    min-width: 100%;
+    .emptyText {
+      font-size: 24px;
+      color: #ccc;
+      margin-top: 40px;
+      text-align: center;
+    }
+  }
+}
+
+// 搜尋列下方
+.searchBottom-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  // 換頁
+  .pager {
+    margin: 10px 12px 10px auto;
+  }
+}
+
+.applyLeagueMask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 298;
+  background-color: rgba(0, 0, 0, 0.7);
+  .applyLeague {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    border-radius: 4px;
+    background-color: #fff;
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      flex-direction: column;
+      background-color: #ebeff2;
+      position: relative;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      padding: 5px 30px;
+      .cardName {
+        width: 100%;
+        color: #62757f;
+        font-size: 18px;
+        margin-bottom: 10px;
+        word-break: break-all;
+        text-align: center;
+      }
+      .leagueNumber {
+        color: #87a1aa;
+      }
+      .closeBtn {
+        width: 13px;
+        height: 13px;
+        background: url("../assets/paramCard/cancel.png") center center no-repeat;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+    }
+    .body {
+      padding: 10px 15px 20px;
+      .sportTitle {
+        border-bottom: 1px solid #a2b6ba;
+        color: #a2b6ba;
+        font-size: 14px;
+        padding: 5px 0;
+      }
+      .sportWrap {
+        display: flex;
+        flex-wrap: wrap;
+        border-top: 1px solid #e8edee;
+        padding-top: 10px;
+        .sportItem {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          width: 70px;
+          height: 70px;
+          border: 1px solid #e9eaee;
+          border-radius: 3px;
+          background-color: #fbfbfd;
+          color: #b7c4c9;
+          cursor: pointer;
+          margin: 0 5px 10px;
+          .sportName {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 0 3px;
+            text-align: center;
+            @include overFlowDot();
+          }
+          &:hover {
+            color: #31a9e6;
+            border-color: #31a9e6;
+            background-color: #fff;
+            box-shadow: 0.6px 0.8px 2.9px 0.1px rgba(121, 121, 121, 0.5);
+          }
+        }
+      }
+    }
+  }
+}
+
+.scrollStyle {
+  .table-wrap {
+    .tableHead {
+      padding-right: 7px;
+    }
+  }
+}
+
+#app .swal2-modal .swal2-styled:focus {
+  box-shadow: none;
+}
+
+// 表格項目的icon
+.chartItemIcon {
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  color: #f9c851;
+  flex-shrink: 0;
+  .number {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  &::after {
+    display: flex;
+    align-items: flex-end;
+    content: "th";
+    font-size: 12px;
+    transform: scaleX(0.8) scaleY(0.8);
+  }
+  &.no1 {
+    .number {
+      display: none;
+    }
+    &::after {
+      display: block;
+      content: "";
+      width: 20px;
+      height: 13px;
+      transform: scaleX(1) scaleY(1);
+      background: url("../assets/riskMonitor/top-1-crown.png");
+    }
+  }
+  &.no2 {
+    &::after {
+      content: "nd";
+    }
+  }
+  &.no3 {
+    &::after {
+      content: "rd";
+    }
+  }
+}
+
+// 特殊會員標記
+.specialSign {
+  height: 5px;
+  width: 5px;
+  border-radius: 1px;
+  &[data-sign="1"] {
+    background-color: $user_special;
+  }
+  &[data-sign="2"] {
+    background-color: $user_smart_punter;
+  }
+  &[data-sign="3"] {
+    background-color: $user_snake;
+  }
+}
+
+// 捲軸樣式
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+/*滚动条两端的箭头*/
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/*滚动条内侧部分 去掉*/
+
+::-webkit-scrollbar-track-piece {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/*滚动条中可以拖动的那部分*/
+
+::-webkit-scrollbar-thumb {
+  background-color: #767676;
+  border-radius: 4px;
+}
+
+/*变角部分*/
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.unresizable::-webkit-resizer {
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+.emptyPage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: #f1f2f7;
+}
+
+.emptyRect {
+  fill: #ccc;
+}
+
+.blockLoadingMask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  .sk-fading-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+.exportExcel {
+  @include solidButton($width: 84px, $height: 28px, $padding: 0 10px);
+  letter-spacing: 1px;
+}
+
+.color-red {
+  color: $color_red;
+}
+
+.color-red2 {
+  color: $color_red2;
+}
+
+.color-blue {
+  color: $color_blue;
+}
+
+.color-blue2 {
+  color: $color_blue2;
+}
+
+.color-gray {
+  color: $color_gray;
+}
