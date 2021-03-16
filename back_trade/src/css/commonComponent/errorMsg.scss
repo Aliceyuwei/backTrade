@@ -1,0 +1,21 @@
+// 錯誤訊息
+.errorMsg-wrap {
+    display: flex;
+    align-items: center;
+    text-align: start;
+    padding: 0 10px;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(242, 102, 94, 0.9);
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    .errorMsg {
+        height: 100%;
+        color: #FFF;
+        font-size: 16px;
+        line-height: 60px;
+    }
+}

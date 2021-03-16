@@ -1,13 +1,24 @@
-// import {
-//     ajaxGet,
-//     ajaxGetLang,
-//     ajaxGetLoginLang,
-//     ajaxPost
-// } from 'common/func';
+import {
+    ajaxGet,
+    // ajaxGetLang,
+    // ajaxGetLoginLang,
+    // ajaxPost
+} from '@/common/func';
 // import qs from 'qs';
 // 共用
 // import axios from 'axios';
 export const commonApi = {
+    getInitInfo ({
+        ...args
+    }) {
+        return ajaxGet({
+            urlName: 'API_GET_COMM_INFO',
+            stateName: 'common',
+            ajaxName: 'info',
+            init: true,
+            ...args
+        });
+    },
 };
 
 /* --------------總覽------------------ */

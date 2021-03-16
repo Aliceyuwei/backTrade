@@ -1,0 +1,463 @@
+@import "../../mixin";
+@import "../../param";
+#controlApp {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  min-width: 1440px;
+  .routeTitle:hover {
+    cursor: pointer;
+  }
+  .top {
+    flex: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .env {
+      //@include rgb($borderRadius: 5px);
+      border-radius: 5px;
+      padding: 3px 5px;
+      animation: alarmBackground 1s infinite linear;
+    }
+    & > .topNav {
+      width: 100%;
+      border-bottom: solid 1px $borderColor;
+      height: auto;
+      background: #62757f;
+
+      & > .navBtns {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        background: white;
+        .navWrap {
+          height: 100%;
+        }
+        .navItem {
+          padding: 0 10px;
+          height: 100%;
+          cursor: pointer;
+          position: relative;
+          font-size: 12px;
+          margin: 0 5px;
+          color: #435966;
+          &:hover {
+            .navItemTitle{
+              color: $linkColor;
+              position: relative;
+              box-shadow: 0 -4px 0 0 $linkColor inset; /* Border bottom */
+              // border-bottom: solid 5px $linkColor;
+              &::after {
+                content: '';
+                position: absolute;
+                height: 4px;
+                right: 0;
+                bottom: 0;
+                background: white;
+                animation: widthTransition 0.2s ease-in-out;
+              }
+            }
+          }
+          .navItemTitle {
+            height: 100%;
+            // overflow: hidden;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+
+            .navIcon {
+              margin-left: 5px;
+              transition-duration: 0.2s;
+            }
+            &.open,
+            &:hover,
+            &.router-link-active  {
+              color: $linkColor;
+              position: relative;
+              box-shadow: 0 -4px 0 0 $linkColor inset; /* Border bottom */
+              // border-bottom: solid 5px $linkColor;
+              &::after {
+                content: '';
+                position: absolute;
+                height: 4px;
+                right: 0;
+                bottom: 0;
+                background: white;
+                animation: widthTransition 0.2s ease-in-out;
+              }
+              .navIcon {
+                transform:scaleY(-1);
+              }
+            }
+          }
+          .navSub {
+            display: none;
+            z-index: 100000;
+            min-width: 100px;
+            position: absolute;
+            border-radius: 0 0 10px 10px;
+            background: #fff;
+            box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
+            padding: 5px 10px;
+            &.allSport {
+              column-count: 3;
+              column-gap: 7px;
+              padding: 10px;
+              .navSub-item {
+                break-inside: avoid;
+                height: 30px;
+                background: white;
+                display: flex;
+                align-items: center;
+                border: 1px solid #E9EAEE;
+                background-color: #FBFBFD;
+                color: rgb(112, 125, 130);
+                cursor: pointer;
+                position: relative;
+                padding: 0 10px;
+                text-align: center;
+                &:last-child {
+                  border-bottom-color: #E9EAEE;
+                }
+              }
+            }
+            .navSub-item {
+              // @include overFlowDot();
+              white-space: nowrap;
+              display: flex;
+              align-items: center;
+              border-bottom: solid 1px rgba(153, 153, 153, 0.5);
+              height: 30px;
+              text-align: left;
+              position: relative;
+              cursor: pointer;
+              transition: padding 0.2s;
+              .routerLink {
+                display: flex;
+                align-items: center;
+                width: 100%;
+              }
+              .subWithMenu {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                &:hover {
+                  .subMenu {
+                    display: block;
+                  }
+                  .navIcon {
+                    transform: rotate(90deg);
+                  }
+                }
+                .navIcon {
+                  margin-left: 5px;
+                  transition-duration: 0.2s;
+                }
+                .subMenu {
+                  position: absolute;
+                  display: none;
+                  left: 100%;
+                  top: 0;
+                  z-index: 100000;
+                  min-width: 100px;
+                  border-radius: 5px;
+                  background: #fff;
+                  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+                  padding: 5px 10px;
+                  .subItem {
+                    border-bottom: solid 1px rgba(153, 153, 153, 0.5);
+                    height: 30px;
+                    color: #435966;
+                    display: flex;
+                    align-items: center;
+                    &:hover {
+                      color: $linkColor;
+                    }
+                    &:last-child {
+                      border-bottom: none;
+                    }
+                  }
+                }
+              }
+              &:last-child {
+                border-bottom-color: transparent;
+              }
+              .icon {
+                display: flex;
+                align-items: center;
+                margin-right: 5px;
+              }
+              &:hover,
+              &.router-link-active {
+                color: $linkColor;
+              }
+            }
+          }
+          &:hover {
+            .navSub {
+              display: block;
+            }
+          }
+        }
+      }
+      .navHeader {
+        width: auto;
+        height: 40px;
+        align-items: center;
+        display: flex;
+        padding: 0 10px;
+
+        .burgerIcon {
+          width: 30px;
+          height: 100%;
+          position: relative;
+          transform: rotate(0deg);
+          transition: .2s ease-in-out;
+          cursor: pointer;
+          span {
+            display: block;
+            position: absolute;
+            height: 4px;
+            width: 100%;
+            background: white;
+            border-radius: 4px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .2s ease-in-out;
+            &:nth-child(1) {
+              top: 8px;
+              transform-origin: left center;
+            }
+            &:nth-child(2) {
+              top: 17px;
+              transform-origin: left center;
+            }
+            &:nth-child(3) {
+              top: 26px;
+              transform-origin: left center;
+            }
+          }
+
+
+          &.open {
+            span {
+              &:nth-child(1) {
+                transform: rotate(45deg);
+                top: 8px;
+                left: 8px;
+              }
+              &:nth-child(2) {
+                width: 0%;
+                top: 13px;
+                opacity: 0;
+              }
+              &:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 30px;
+                left: 8px;
+              }
+            }
+          }
+        }
+        .siteIcon {
+          float: left;
+          margin-left: 15px;
+          @include verticalAlign(relative);
+        }
+        .navTitle {
+          float: left;
+          line-height: 40px;
+          color: white;
+          font-weight: 500;
+          margin-left: 10px;
+          font-size: 16px;
+          @include verticalAlign(relative);
+        }
+        .routerName {
+          color: white;
+
+        }
+        .topNavRight {
+          display: flex;
+          align-items: center;
+          margin-left: auto;
+          & > div {
+            margin-left: 10px;
+          }
+          .status-wrap {
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: #808080;
+            // background-color: rgb(216, 246, 249);
+            width: 100%;
+            text-align: center;
+            &:hover {
+              .status-drop {
+                display: block;
+              }
+            }
+            .status-drop {
+              position: absolute;
+              display: none;
+              top: 30px;
+              z-index: 555;
+              text-align: left;
+              padding: 10px;
+              background-color: white;
+              color: #7F98A3;
+              width: auto;
+              height: auto;
+              border-radius: 10px;
+              box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
+              &::before {
+                position: absolute;
+                top: -10px;
+                left: 20px;
+                content: "";
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-bottom: 10px solid white;
+                z-index: 2;
+              }
+              .companyItem {
+                display: flex;
+                white-space: nowrap;
+                align-items: center;
+              }
+              .name {
+                color: #409eff;
+                width: 70px;
+              }
+            }
+            .current-status {
+              align-items: center;
+              overflow: hidden;
+              justify-content: center;
+              display: flex;
+              padding: 5px 0;
+              width: 100%;
+              .title {
+                color: white;
+              }
+              .status {
+                background: grey;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-right: 5px;
+                &.work,
+                &.connect,
+                &.connected{
+                    background: rgb(32, 199, 32);
+                }
+                &.maintenance,
+                &.connecting,
+                &.reconnect{
+                    background: grey;
+                }
+                &.unknown,
+                &.error,
+                &.disconnect {
+                    background: red;
+                }
+              }
+            }
+          }
+          .esTime {
+            color: white;
+            display: flex;
+            white-space: nowrap;
+          }
+          .userInfo,
+          .langSelect {
+            display: flex;
+            position: relative;
+            align-items: center;
+            color: white;
+            height: 25px;
+            border: solid 1px rgb(196, 196, 196);
+            border-radius: 4px;
+            white-space: nowrap;
+            padding: 3px 5px;
+            transition-duration: 0.2s;
+            .triangle {
+              transition-duration: 0.2s;
+              color:rgb(196, 196, 196);
+            }
+            &:hover,
+            &.active {
+              .triangle {
+                color: white;
+              }
+              cursor: pointer;
+              border-color: white;
+            }
+            .langDrop,
+            .userDrop {
+              position: absolute;
+              background: #62757f;
+              top: calc(100% + 1px);
+              user-select: none;
+              right: 0;
+              min-width: 100%;
+              width: auto;
+              color: white;
+              z-index: 555;
+              box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
+              display: flex;
+              flex-direction: column;
+              border-radius: 0 0 4px 4px;
+              padding: 3px 6px;
+              .keyIcon {
+                margin-right: 5px;
+                width: 13px;
+                height: 13px;
+                background: url("../../../assets/accPrivacy.png") center center no-repeat;
+              }
+              .logoutIcon {
+                margin-right: 5px;
+                width: 13px;
+                height: 13px;
+                background: url("../../../assets/logout.png") center center no-repeat;
+              }
+              & > div {
+                display: flex;
+                align-items: center;
+                padding: 3px 2px;
+                border-bottom: solid 1px color;
+                &:hover {
+                  color: $linkColor;
+                }
+                &:last-child {
+                  border-bottom-color: transparent;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &>.bottom {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+    & > .content {
+      flex: 1;
+      height: 100%;
+      z-index: 0;
+      width: 0.1%;
+      background-color: #ebeff2;
+      transition: padding 0.5s;
+    }
+  }
+}

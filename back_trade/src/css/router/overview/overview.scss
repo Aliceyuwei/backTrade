@@ -1,0 +1,886 @@
+@import "../../mixin";
+@import "../../param";
+
+.overview {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    &.rgb {
+        & > div {
+            background: rgb(24, 23, 23)!important;
+            z-index: 0;
+            color: white!important;
+        }
+        ::v-deep {
+            .blockCell {
+                @include rgb($borderRadius: 10px);
+            }
+        }
+        // /deep/ {
+        //     .blockCell {
+        //         @include rgb($borderRadius: 10px);
+        //     }
+        // }  
+    }
+    .overviewHeader {
+        border: 1px solid orange;
+        display: flex;
+        align-items: center;
+        height: 35px;
+        flex-shrink: 0;
+        padding: 0 10px;
+        .lastUpdateTime {
+            color: #b3b3b3;
+            margin-left: auto;
+            padding-right: 5px;
+        }
+    }
+    
+    .overviewContent {
+        border: 1px solid yellow;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: auto;
+        padding: 10px;
+        .viewBlock {
+            border: 1px solid green;
+            display: flex;
+            flex-shrink: 0;
+            margin-bottom: 10px;
+            position: relative;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            &.block-1 {
+                height: 60px;
+                //flex: 60 0 60px;
+            }
+            &.block-2 {
+                height: 210px;
+                // flex: 210 0 210px;
+            }
+            &.block-3 {
+                height: 260px;
+                // flex: 250 0 250px;
+            }
+            &.block-4 {
+                height: 280px;
+                // flex: 280 0 280px;
+            }
+            .blockCell {
+                border: 1px solid blue;
+                flex-shrink: 0;
+                border-radius: 10px;
+                background: #fff;
+                box-shadow: 0 1px 2px 0 rgba(153, 153, 153, 0.5);
+                position: relative;
+                .blockTitle {
+                    display: flex;
+                    align-items: center;
+                    height: 40px;
+                    padding: 0 20px;
+                    .titleText {
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: #505458;
+                    }
+                }
+                .blockBody {
+                    display: flex;
+                }
+                .blockBottom {
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    margin-top: auto;
+                    padding: 0 20px;
+                    .moreLink {
+                        color: $linkColor;
+                        align-self: flex-start;
+                        line-height: 13px;
+                        margin-left: auto;
+                        &.empty {
+                            color: #ccc;
+                        }
+                    }
+                }
+                &.basicInfo {
+                    border: 1px solid aliceblue;
+                    display: flex;
+                    align-items: center;
+                    flex: 1 0 800px;
+                    .onlineUser {
+                        display: flex;
+                        flex: 400 0 400px;
+                        color: #505458;
+                        padding: 0 30px 0 20px;
+                        .text {
+                            display: flex;
+                            align-items: center;
+                            font-size: 16px;
+                            font-weight: bold;
+                            padding-left: 30px;
+                            background: url("../../../assets/stopMonitor/members.png")
+                                left center no-repeat;
+                        }
+                        .number {
+                            font-size: 24px;
+                            margin-left: auto;
+                        }
+                    }
+                    .block {
+                        flex-shrink: 0;
+                        width: 1px;
+                        height: 33%;
+                        background-color: #ebeff2;
+                    }
+                    .specialUser {
+                        border: 1px solid palevioletred;
+                        display: flex;
+                        flex: 400 0 400px;
+                        color: #98a6ad;
+                        padding-left: 5px;
+                        .users {
+                            display: flex;
+                            flex: 1 0;
+                            padding: 0 21px 0 15px;
+                            .text {
+                                display: flex;
+                                align-items: center;
+                                font-size: 13px;
+                                flex-shrink: 0;
+                                &::before {
+                                    display: block;
+                                    content: "";
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 2px;
+                                    margin-right: 9px;
+                                }
+                            }
+                            .number {
+                                display: flex;
+                                align-items: center;
+                                font-size: 12px;
+                                margin-left: auto;
+                                word-break: break-all;
+                            }
+                            &[data-type="3"] {
+                                .text {
+                                    &::before {
+                                        background-color: $user_snake;
+                                    }
+                                }
+                            }
+                            &[data-type="2"] {
+                                .text {
+                                    &::before {
+                                        background-color: $user_smart_punter;
+                                    }
+                                }
+                            }
+                            &[data-type="1"] {
+                                .text {
+                                    &::before {
+                                        background-color: $user_special;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.incomeOverview {
+                    border: 1px solid purple;
+                    display: flex;
+                    flex-direction: column;
+                    flex: 395 0 395px;
+                    .blockTitle {
+                        .filter {
+                            display: flex;
+                            align-items: center;
+                            height: 20px;
+                            color: #a9b9c2;
+                            margin-left: auto;
+                            .filterItem {
+                                border-bottom: 1px solid transparent;
+                                cursor: pointer;
+                                line-height: 20px;
+                                &:hover,
+                                &.active {
+                                    color: $linkColor;
+                                    border-color: $linkColor;
+                                }
+                            }
+                            .block {
+                                width: 1px;
+                                background-color: #ebeff2;
+                                height: 50%;
+                                margin: 0 10px;
+                            }
+                        }
+                    }
+                    .blockBody {
+                        border: 1px solid brown;
+                        flex-grow: 1;
+                        .settlementIncome,
+                        .settlementProcess {
+                            display: flex;
+                            flex: 1 0;
+                            flex-direction: column;
+                            & > .title {
+                                display: flex;
+                                align-items: center;
+                                height: 30px;
+                                padding: 0 20px;
+                                color: #a9b9c2;
+                            }
+                            & > .body {
+                                display: flex;
+                                flex-direction: column;
+                                flex-grow: 1;
+                                justify-content: center;
+                            }
+                            & > .bottom {
+                                display: flex;
+                                height: 50px;
+                                padding: 0 20px;
+                            }
+                        }
+                        .settlementIncome {
+                            border: 1px solid orangered;
+                            & > .body {
+                                .settlementAmount {
+                                    color: #505458;
+                                    font-size: 20px;
+                                    text-align: right;
+                                    padding-right: 20px;
+                                }
+                            }
+                            & > .bottom {
+                                .settlementRate {
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 100%;
+                                    .rate {
+                                        color: #74a6c1;
+                                        text-align: left;
+                                        &.zero {
+                                            color: #ecedef;
+                                        }
+                                    }
+                                    .bar {
+                                        height: 6px;
+                                        position: relative;
+                                        background-color: #ecedef;
+                                        .barFill {
+                                            height: 100%;
+                                            position: absolute;
+                                            left: 0;
+                                            top: 0;
+                                            background-color: #74a6c1;
+                                        }
+                                    }
+                                    .note {
+                                        color: #ccc;
+                                        text-align: right;
+                                    }
+                                }
+                            }
+                        }
+                        .settlementProcess {
+                            border: 1px solid aqua;
+                            & > .body {
+                                .processChart {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    .circleChart {
+                                        position: relative;
+                                        width: 80px;
+                                        height: 80px;
+                                        border-radius: 50%;
+                                        color: #a1ffce;
+                                        background-image: linear-gradient(
+                                                to right,
+                                                rgba(29, 151, 108, 0.4),
+                                                rgba(161, 255, 206, 0.4)
+                                            ),
+                                            linear-gradient(#6699a1, #6699a1);
+                                        margin-left: -15%;
+                                        .circleText {
+                                            display: flex;
+                                            flex-direction: column;
+                                            justify-content: center;
+                                            align-items: center;
+                                            position: absolute;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translateX(-50%)
+                                                translateY(-50%);
+                                            z-index: 1;
+                                            .title {
+                                                color: #6699a1;
+                                            }
+                                            .text {
+                                                color: #6699a1;
+                                                font-weight: bold;
+                                            }
+                                        }
+                                        .circleCell {
+                                            width: calc(100% - 24px);
+                                            height: calc(100% - 24px);
+                                            border-radius: 50%;
+                                            position: absolute;
+                                            top: 50%;
+                                            left: 12px;
+                                            transform: translateY(-50%);
+                                            background-color: #fff;
+                                        }
+                                        .circleOtherText {
+                                            display: flex;
+                                            flex-direction: column;
+                                            justify-content: center;
+                                            align-items: flex-end;
+                                            position: absolute;
+                                            top: 10px;
+                                            left: 100%;
+                                            z-index: 1;
+                                            .title {
+                                                color: #a9b9c2;
+                                                white-space: nowrap;
+                                                position: relative;
+                                                left: 11px;
+                                            }
+                                            .line {
+                                                height: 1px;
+                                                width: 50px;
+                                                background-color: #a9b9c2;
+                                                margin: 3px 0;
+                                            }
+                                            .text {
+                                                color: #a9b9c2;
+                                                white-space: nowrap;
+                                            }
+                                        }
+                                        .circleRight,
+                                        .circleLeft {
+                                            width: 50%;
+                                            height: 100%;
+                                            position: absolute;
+                                            top: 0;
+                                            overflow: hidden;
+                                            .circle {
+                                                width: 200%;
+                                                height: 100%;
+                                                position: absolute;
+                                                top: 0;
+                                                transform: rotate(0deg);
+                                                .circleBorder {
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    border-radius: 50%;
+                                                    position: absolute;
+                                                    top: 0;
+                                                    background-color: transparent;
+                                                }
+                                                .circleMask {
+                                                    width: calc(50% + 2px);
+                                                    height: calc(100% + 2px);
+                                                    position: absolute;
+                                                    top: 50%;
+                                                    transform: translateY(-50%);
+                                                    background-color: #fff;
+                                                    overflow: hidden;
+                                                    .circleBGBorder {
+                                                        width: calc(
+                                                            (200% - 4px) - 10px
+                                                        );
+                                                        height: calc(
+                                                            (100% - 2px) - 10px
+                                                        );
+                                                        position: absolute;
+                                                        top: 50%;
+                                                        transform: translateY(
+                                                            -50%
+                                                        );
+                                                        border-radius: 50%;
+                                                        border: 4px solid
+                                                            #ebeff2;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .circleLeft {
+                                            left: 0;
+                                            .circle {
+                                                left: 0;
+                                                .circleMask {
+                                                    left: -2px;
+                                                    .circleBGBorder {
+                                                        left: 8px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .circleRight {
+                                            right: 0;
+                                            .circle {
+                                                right: 0;
+                                                .circleMask {
+                                                    right: -2px;
+                                                    .circleBGBorder {
+                                                        right: 8px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.empty {
+                                            margin-left: 0;
+                                        }
+                                    }
+                                }
+                            }
+                            & > .bottom {
+                                .settlementAmount {
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 100%;
+                                    padding-top: 8px;
+                                    & > .text {
+                                        color: #a9b9c2;
+                                        text-align: left;
+                                    }
+                                    & > .amount {
+                                        color: #596a72;
+                                        font-size: 15px;
+                                        text-align: right;
+                                    }
+                                }
+                            }
+                        }
+                        .block {
+                            display: flex;
+                            align-items: center;
+                            width: 1px;
+                            .blockLine {
+                                width: 100%;
+                                height: 59%;
+                                background-color: #ebeff2;
+                            }
+                        }
+                    }
+                    &.empty {
+                        .blockBody {
+                            .settlementIncome {
+                                .bottom {
+                                    .settlementRate {
+                                        .rate {
+                                            color: #ecedef;
+                                        }
+                                    }
+                                }
+                            }
+                            .settlementProcess {
+                                .body {
+                                    .processChart {
+                                        .circleChart {
+                                            margin-left: 0;
+                                            .circleText {
+                                                .title,
+                                                .text {
+                                                    color: #ccc;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.matchStatus {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 395 0 395px;
+                    margin-left: 10px;
+                    .blockTitle {
+                        .datePicker {
+                            display: flex;
+                            align-items: center;
+                            margin-left: auto;
+                            .todayBtn {
+                                width: auto;
+
+                                height: 20px;
+                                line-height: 18px;
+                                font-size: 12px;
+                                padding: 0 2px;
+                            }
+                            .datePickerBtn {
+                                width: 20px;
+                                height: 20px;
+                                padding: 10px;
+                                border: 0;
+                                background: url("../../../assets/gameDownload/datePicker.png")
+                                    center center no-repeat;
+                                color: transparent;
+                                &.active {
+                                    background-image: url("../../../assets/gameDownload/datePicker_active.png");
+                                }
+                            }
+                        }
+                    }
+                    .blockBody {
+                        flex-grow: 1;
+                        flex-direction: column;
+                        padding: 15px 0 35px;
+                        .matchWrap {
+                            display: flex;
+                            flex-grow: 1;
+                            .matchItem {
+                                flex: 1 0;
+                                padding: 0 17px;
+                                .matchHead {
+                                    display: flex;
+                                    align-items: center;
+                                    height: 22px;
+                                    border-bottom: 1px solid $borderColor;
+                                    padding: 0 8px 0 2px;
+                                    .text {
+                                        color: #596a72;
+                                    }
+                                    .number {
+                                        color: #797979;
+                                        margin-left: auto;
+                                    }
+                                }
+                                .matchBody {
+                                    padding: 5px 8px 0;
+                                    .items {
+                                        display: flex;
+                                        align-items: center;
+                                        color: #f9c851;
+                                        margin-bottom: 10px;
+                                        .text {
+                                            flex-grow: 1;
+                                            width: 0.1px;
+                                            color: #7f98a3;
+                                            margin-left: 3px;
+                                            @include overFlowDot();
+                                        }
+                                        .number {
+                                            color: #ccc;
+                                            margin-left: auto;
+                                            &.link {
+                                                // color: black;
+                                                color: #188ae2;
+                                                cursor: pointer;
+                                                &.empty {
+                                                    color: #ccc;
+                                                    cursor: default;
+                                                }
+                                            }
+                                        }
+                                        &:last-child {
+                                            margin-bottom: 0;
+                                        }
+                                    }
+                                }
+                                &.todayMatch {
+                                    border-right: 1px solid $borderColor;
+                                }
+                            }
+                            .block {
+                                width: 1px;
+                                .blockLine {
+                                }
+                            }
+                        }
+                    }
+                }
+                &.popularMatch {
+                    display: flex;
+                    flex: 1 0 800px;
+                    .chartWrap {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 290 0 290px;
+                        .blockTitle {
+                            .chartLegend {
+                                display: flex;
+                                color: #a9b9c2;
+                                font-size: 12px;
+                                margin-left: auto;
+                                .amount {
+                                    background: url("../../../assets/riskMonitor/bar-chart.png")
+                                        left center no-repeat;
+                                    padding-left: 17px;
+                                }
+                                .number {
+                                    background: url("../../../assets/riskMonitor/line-chart.png")
+                                        left center no-repeat;
+                                    padding-left: 19px;
+                                    margin-left: 20px;
+                                }
+                            }
+                        }
+                        .matchChart {
+                            flex: 1 0 190px;
+                            margin: auto 0;
+                            padding: 20px 20px 0;
+                            .mixingChart {
+                                .chartContent {
+                                    flex: 120 0 120px;
+                                    height: 120px;
+                                    .chartBG {
+                                        .bgLine {
+                                            border-color: #e6e6e6;
+                                        }
+                                    }
+                                }
+                                .line {
+                                    background-color: #ccc;
+                                }
+                                .itemNameWrap {
+                                    flex: 50 0 50px;
+                                    height: 50px;
+                                }
+                            }
+                        }
+                    }
+                    .detailWrap {
+                        display: flex;
+                        flex: 510 0 510px;
+                        padding: 13px 20px 12px 0;
+                        .detailContent {
+                            display: flex;
+                            flex-direction: column;
+                            flex-grow: 1;
+                            border-radius: 3px;
+                            box-shadow: 0 1px 1px 0 rgba(153, 153, 153, 0.3);
+                        }
+                    }
+                    &.empty {
+                        position: relative;
+                        & > .emptyText {
+                            width: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 50%;
+                            color: #a9b9c2;
+                            font-size: 14px;
+                            text-align: center;
+                            transform: translateY(-50%);
+                        }
+                    }
+                }
+
+                &.resultChange,
+                &.gameCenterChange {
+                    display: flex;
+                    flex-direction: column;
+                    .blockTable {
+                        display: flex;
+                        flex-direction: column;
+                        flex-grow: 1;
+                        padding: 0 20px;
+                        margin-bottom: 8px;
+                        .tableHead,
+                        .tableBody .tableItems {
+                            display: flex;
+                            & > div {
+                                display: flex;
+                                align-items: center;
+                                padding: 0 5px;
+                            }
+                        }
+                        .tableHead {
+                            height: 25px;
+                            color: #666670;
+                            font-weight: bold;
+                        }
+                        .tableBody {
+                            display: flex;
+                            flex-direction: column;
+                            flex-grow: 1;
+                            border-top: 1px solid $borderColor;
+                            border-bottom: 1px solid $borderColor;
+                            & > .emptyText {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-grow: 1;
+                                color: #a9b9c2;
+                                font-size: 14px;
+                            }
+                            .tableItems {
+                                height: 0.1px;
+                                flex-grow: 1;
+                                color: #797979;
+                                border-bottom: 1px solid #f2f6f9;
+                                &:last-child,
+                                &.empty {
+                                    border-bottom: 0;
+                                }
+                                &.empty {
+                                    opacity: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+                &.resultChange {
+                    flex: 280 0 280px;
+                    .blockTable {
+                        .tableHead,
+                        .tableBody .tableItems .itemTop,
+                        .tableBody .tableItems .itemBottom {
+                            display: flex;
+                            & > .time {
+                                width: 60px;
+                                flex: 60 0 60px;
+                            }
+                            & > .team {
+                                width: 120px;
+                                flex: 120 0 120px;
+                            }
+                            & > .scoreChanging {
+                                width: 70px;
+                                flex: 70 0 70px;
+                            }
+                        }
+                        .tableBody {
+                            .tableItems {
+                                flex-direction: column;
+                                & > div {
+                                    display: flex;
+                                    align-items: center;
+                                }
+                                & > .itemTop {
+                                    & > .team {
+                                        flex-direction: column;
+                                        align-items: flex-start;
+                                        justify-content: space-around;
+                                        .home,
+                                        .away {
+                                            width: 100%;
+                                            @include overFlowDot();
+                                        }
+                                        .home {
+                                            color: #4d4d4d;
+                                        }
+                                        .away {
+                                            color: #797979;
+                                        }
+                                    }
+                                    & > .scoreChanging {
+                                        flex-direction: column;
+                                        align-items: flex-start;
+                                        justify-content: space-around;
+                                        padding-right: 15px;
+                                        .teamScore {
+                                            display: flex;
+                                            align-items: center;
+                                            width: 100%;
+                                            .score {
+                                                flex-grow: 1;
+                                                text-align: center;
+                                                color: #62757f;
+                                            }
+                                            &::after {
+                                                display: block;
+                                                content: "";
+                                                width: 0;
+                                                height: 0;
+                                                border-style: solid;
+                                                border-width: 0 3.5px 6px 3.5px;
+                                                border-color: transparent
+                                                    transparent transparent
+                                                    transparent;
+                                                margin-left: auto;
+                                            }
+                                            &.status-1 {
+                                                &::after {
+                                                    border-color: transparent
+                                                        transparent #78cd51
+                                                        transparent;
+                                                }
+                                            }
+                                            &.status-2 {
+                                                &::after {
+                                                    border-width: 6px 3.5px 0
+                                                        3.5px;
+                                                    border-color: $color_red
+                                                        transparent transparent
+                                                        transparent;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                & > .itemTop {
+                                    display: flex;
+                                    height: 40px;
+                                    flex: 40 0 40px;
+                                    & > div {
+                                        display: flex;
+                                        height: 100%;
+                                    }
+                                }
+                                & > .itemBottom {
+                                    display: flex;
+                                    height: 20px;
+                                    flex: 20 0 20px;
+                                    padding: 0;
+                                    & > div {
+                                        display: flex;
+                                        align-items: flex-start;
+                                    }
+                                    & > .team {
+                                        padding: 0 5px 0 13px;
+                                        color: #b3b3b3;
+                                        height: 100%;
+                                        .text {
+                                            @include overFlowDot();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.gameCenterChange {
+                    flex: 510 0 510px;
+                    margin-left: 10px;
+                    .blockTable {
+                        .tableHead,
+                        .tableBody .tableItems {
+                            display: flex;
+                            .text {
+                                @include overFlowDot();
+                            }
+                            & > .time {
+                                width: 105px!important;
+                                // flex: 105 0 105px;
+                            }
+                            & > .sport {
+                                width: 50px;
+                                flex: 50 0 50px;
+                            }
+                            & > .changingItem {
+                                width: 85px;
+                                flex: 85 0 85px;
+                            }
+                            & > .changingDetail {
+                                width: 230px;
+                                flex: 230 0 230px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

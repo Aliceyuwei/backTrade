@@ -1,15 +1,15 @@
 <template>
     <div class="content">
-        tplContent
-        <!-- <error-msg></error-msg> -->
+        <!-- tplContent -->
+        <error-msg></error-msg>
         <router-view id="routeContent"></router-view>
     </div>
 </template>
 <script>
-    // import ErrorMsg from 'components/commonComponent/ErrorMsg';
+    import ErrorMsg from '@/components/commonComponent/ErrorMsg';
     export default {
         components: {
-            // ErrorMsg
+            ErrorMsg
         }
     };
 </script>
